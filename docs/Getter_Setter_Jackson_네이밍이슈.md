@@ -370,7 +370,7 @@ namingDto(aBCDNo=null, AAaa=null, BBBb=null, CCcC=null, DDDD=null, AAAAAAa=null,
 ---
 
 
-# 롬북 Getter/Setter naming convension 이슈 (면접준비)
+# 롬북 Getter/Setter naming convension 이슈 (Interview)
 - 외부 API 연계시 응답 객체의 특정 필드값만 null로 들어오는 현상이 있었습니다.
 - 처음엔 변수의 오타 문제인 줄 알았습니다. 
 - 디버깅을 해보니 응답 문자열에는 모든 값이 잘들어오고 
@@ -386,7 +386,7 @@ namingDto(aBCDNo=null, AAaa=null, BBBb=null, CCcC=null, DDDD=null, AAAAAAa=null,
   > Getter/Setter 직접 생성으로 해결하지 못하는 필드명 없었음.
 
 
-# 롬북 Getter/Setter naming convension 이슈가 발생한 이유? (ok)
+# 롬북 Getter/Setter naming convension 이슈가 발생한 이유?
 JSON 객체(문자열)을 타켓 객체에 매핑을 할 때
 key값(aBCDNo필드명 동일) -> getABCDNo(롬북) -> abcdno(Jackson)
 Json databind에 의해서 key값과 불일치로 null이 들어간다.
@@ -474,7 +474,7 @@ public class NamingReq {
 ```
   > .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `com.web.api.domain.NamingReq` (although at least one Creator exists): cannot deserialize from Object value (no delegate- or property-based Creator)]
 
-## Req/Res 객체에 Setter(@Setter/Setter 직접생성) 사용 지양하고자 할때 어떻게 처리?
+## Req/Res 객체에 Setter(@Setter/Setter 직접생성) 사용을 지양하고자 할때 어떻게 처리?
 - @Setter(AccessLevel.PROTECTED)를 쓰고, 추가 수정해야할 경우는 update필드명() 따로 생성해서 처리.
 - Entity를 만들 때는 외부에서 쉽게 변경할 수 없게 @Setter를 사용하지않는다.
 - Setter를 사용하면 의도가 불명확하고 변경하면 안되는 중요한 값임에도 불구하고 변경 가능한 값으로 착각할 수 있다. (안정성 보장이 안된다.)
