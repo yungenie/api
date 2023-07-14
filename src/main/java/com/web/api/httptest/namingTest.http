@@ -1,0 +1,55 @@
+POST http://localhost:8080/v1/issue/naming/lombok-Jackson
+Content-Type: application/json
+
+{
+  "aBCDNo" : "asdf",
+  "AAaa": "asdf",
+  "BBBb": "asdf",
+  "CCcC": "asdf",
+  "DDDD": "asdf",
+  "AAAAAAa": "asdf",
+  "aA": "fdsa",
+  "Aa": "asdf",
+  "aaA": "asdf",
+  "Fab" : "hihi"
+}
+
+###
+POST http://localhost:8080/v1/issue/naming/auto
+Content-Type: application/json
+
+{
+  "aBCDNo" : "asdf",
+  "AAaa": "asdf",
+  "BBBb": "asdf",
+  "CCcC": "asdf",
+  "DDDD": "asdf",
+  "AAAAAAa": "asdf",
+  "aA": "fdsa",
+  "Aa": "asdf",
+  "aaA": "asdf",
+  "Fab" : "hihi"
+}
+
+###
+POST http://localhost:8080/v1/issue/naming/lombok
+Content-Type: application/json
+
+{
+  "aBCDNo" : "asdf",
+  "AAaa": "asdf",
+  "BBBb": "asdf",
+  "CCcC": "asdf",
+  "DDDD": "asdf",
+  "AAAAAAa": "asdf",
+  "aA": "fdsa",
+  "Aa": "asdf",
+  "aaA": "asdf",
+  "Fab" : "hihi"
+}
+
+
+
+
+
+
