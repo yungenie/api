@@ -396,7 +396,7 @@ key값(aBCDNo필드명 동일) -> getaBCDNo(직접생성) -> aBCDNo(Jackson) key
 
 
 # 추가 이슈 및 궁금증 🚨
-## @JsonProperty란? (*확실히 모름)
+## @JsonProperty란? (*추가파악 필요)
 @JsonProperty(name)는 JSON 속성 이름을 주석이 달린 Java 필드 이름에 매핑하도록 Jackson ObjectMapper에 지시합니다.
 JsonProperty는 변수에 대한 getter 및 setter 메서드를 지정하는 데 사용됩니다
 @JsonProperty는 serializer에게 object를 serialize하는 방법을 알려주는 메타 데이터입니다. 다음 용도로 사용됩니다.
@@ -474,7 +474,7 @@ public class NamingReq {
 ```
   > .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `com.web.api.domain.NamingReq` (although at least one Creator exists): cannot deserialize from Object value (no delegate- or property-based Creator)]
 
-## Req/Res 객체에 Setter(@Setter/Setter 직접생성) 사용하지 말라는 글을 봤는데 어떻게 처리?
+## Req/Res 객체에 Setter(@Setter/Setter 직접생성) 사용 지양하고자 할때 어떻게 처리?
 - @Setter(AccessLevel.PROTECTED)를 쓰고, 추가 수정해야할 경우는 update필드명() 따로 생성해서 처리.
 - Entity를 만들 때는 외부에서 쉽게 변경할 수 없게 @Setter를 사용하지않는다.
 - Setter를 사용하면 의도가 불명확하고 변경하면 안되는 중요한 값임에도 불구하고 변경 가능한 값으로 착각할 수 있다. (안정성 보장이 안된다.)
