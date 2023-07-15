@@ -371,19 +371,33 @@ namingDto(aBCDNo=null, AAaa=null, BBBb=null, CCcC=null, DDDD=null, AAAAAAa=null,
 
 
 # 롬북 Getter/Setter naming convension 이슈 (Interview)
+- 기억에 남는 특이했던 트러블 슈팅이 있습니다.
 - 외부 API 연계시 응답 객체의 특정 필드값만 null로 들어오는 현상이 있었습니다.
-- 처음엔 변수의 오타 문제인 줄 알았습니다. 
-- 디버깅을 해보니 응답 문자열에는 모든 값이 잘들어오고 
+- 처음엔 변수의 오타 문제인 줄 알았으나
+- 디버깅을 해보니 응답 문자열에는 모든 값이 잘들어오고
 - 응답 문자열을 JSON Object 변경 후 타켓 객체에 매핑을 시킬때 특정 필드 값이 null로 들어왔습니다.
-- Jackson Converter 쪽의 문제이지 않을까 싶어서 구글링과 공식문서를 통해 
-- Jackson 네이밍 규칙에 의해서 변환된 key와 필드값의 불일치로 생기는 원인이라는 것을 알게 되었습니다.
-- Jackson은 Getter의 메소드명으로 문자의 첫 두글자가 대문자일 경우 이어지는 대문자까지 소문자로 변경합니다. 
+- Jackson Converter 쪽의 문제이지 않을까 싶어서 구글링과 공식문서를 통해
+- Jackson 네이밍 규칙에 의해서 만들어질 JSON key와 필드값의 불일치로 생기는 원인이라는 것을 알게 되었습니다.
+- Jackson은 Getter의 메소드명으로 문자의 첫 두글자가 대문자일 경우 이어지는 대문자까지 소문자로 변경합니다.
 - 그런데, 롬복의 Getter는 필드의 맨 첫번째 문자를 무조건 대문자로 만들어줍니다.
 - 그래서 aBCDNo와 같은 필드일 경우 롬복에 의해서 getABCDNo로 메서드명이 만들어지고, 다시 Jackson에 의해서 abcdno 모두 소문자로 변경이 되어 JSON key 불일치가 생기는 것을 알게 되어
 - 인텔리제이에서 제공해주는 Getter/Setter 직접생성을 통해 이슈를 해결했습니다.
-- 기본으로 제공해주는 Getter/Setter는 기존의 필드명을 그대로 유지하기 때문에 이슈가 있었던 필드명 해결이 가능합니다. 
-  > AAaa, Bbb 같은 필드명은 @JsonProperty 애노테이션을 사용해야 해결 가능합니다.
-  > Getter/Setter 직접 생성으로 해결하지 못하는 필드명 없었음.
+- 기본으로 제공해주는 Getter/Setter는 기존의 필드명을 그대로 유지하기 때문에 이슈가 있었던 필드명은 해결이 가능합니다.
+- Getter/Setter 직접 생성으로 해결하지 못하는 필드명 없었음.
+- 해당 내용을 이슈 게시판(요나)에 올려 팀원분들께 공유드렸습니다.
+- 최근에 해당 이슈를 리마인드 하기 위해서 테스트를 해보는 중에 다른 방법으로 해결할 순 없는지 알아보다가
+- @JsonProperty 애노테이션을 사용하면 Jackson Object Mapper가 지정한명을 JSON Key로 생성하여 필드와 매핑을 해주는 걸 확인했습니다.
+- 트러블 슈팅을 마무리를 위해 추가적인 내용을 개인 블로그에 작성해서 마무리 했습니다.
+
+- Setter 관련 꼬리질문
+- 데이터 안전성 확보를 위해 public setter 보다는 private setter 메서드를 사용하고 수정용 메서드를 별도로 만들어 처리하는 게 좋다는 걸 알게되었습니다.
+- AAaa, Bbb 같은 필드명은 Getter/Setter 직접생성만으로 해결 안됨
+- aBCDNo 같은 필드명에 @JsonProperty만 붙이고, Setter 메서드가 없으면 API플랫폼(Postman, Swagger)에 중복으로 키가 발생됨. 
+  - Setter 직접생성 + Setter메서드 위 @JsonProperty 애노테이션 사용하거나
+  - 롬북의 @Setter + 필드위 @JsonProperty 애노테이션 사용해야 해결 가능합니다.
+  - 마찬가지로 @Setter(AccessLevel.PRIVATE)를 써서 데이터의 안전성을 확보하고, 추가로 값을 수정해야할 경우는 update필드명() 따로 생성해서 처리.
+
+
 
 
 # 롬북 Getter/Setter naming convension 이슈가 발생한 이유?
@@ -410,7 +424,6 @@ JsonProperty는 변수에 대한 getter 및 setter 메서드를 지정하는 데
 객체의 필드에
 @JsonProperty 붙이고 @Setter가 없으면 Jackson 네이밍 규칙과 + @JsonProperty 변수 2개 중복값으로 내보내고,
 - aBCDNo(필드명) -> getABCDNo(롬북) -> abcdno(Jackson) JSON key가 aBCDNo, abcdno 2개 생긴다.
-- @Setter가 없으면 어떻게 응답값을 객체에 매핑을 하는 가? (*확실히 모름)
 
 @JsonProperty 붙이고 @Setter가 있으면 @Setter메서드에도 @JsonProperty붙여줘서 1개로 내보낸다.
 
@@ -455,7 +468,7 @@ JsonProperty는 변수에 대한 getter 및 setter 메서드를 지정하는 데
 - 기본 생성자에 의해서 reflection 사용해서 값을 주입.
 - 기본 생성자는 일반적으로 컴파일 할때 생성된다. 근데 생성자(인자가 있는)가 존재하면 기본 생성자는 안만들어짐.
 - 만약 인자가 딱 1개만 있는 생성자라면 오류 남.
-- JSON 데이터를 -> 객체로 역직렬화 할 수 없다고 나옴.
+- 나머지 필드에 대해서 JSON 데이터를 -> 객체로 역직렬화 할 수 없다고 나옴.
 ```java
 @Getter
 @ToString
@@ -474,8 +487,14 @@ public class NamingReq {
 ```
   > .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `com.web.api.domain.NamingReq` (although at least one Creator exists): cannot deserialize from Object value (no delegate- or property-based Creator)]
 
+
+## reflection이란 무엇인가?
+- 실행 도중에 타입(클래스, 인터페이스)을 검사하고 구성 멤버를 조사하는 것을 말한다.
+- 자바는 클래스와 인터페이스의 메타 정보(패키지, 타입정보, 생성자, 필드, 메소드)를 Class 객체로 관리한다.
+- 메타 정보를 읽고 수정하는 행위를 리플렉션이라고 한다.
+
 ## Req/Res 객체에 Setter(@Setter/Setter 직접생성) 사용을 지양하고자 할때 어떻게 처리?
-- @Setter(AccessLevel.PROTECTED)를 쓰고, 추가 수정해야할 경우는 update필드명() 따로 생성해서 처리.
+- @Setter(AccessLevel.PRIVATE)를 쓰고, 추가 수정해야할 경우는 update필드명() 따로 생성해서 처리.
 - Entity를 만들 때는 외부에서 쉽게 변경할 수 없게 @Setter를 사용하지않는다.
 - Setter를 사용하면 의도가 불명확하고 변경하면 안되는 중요한 값임에도 불구하고 변경 가능한 값으로 착각할 수 있다. (안정성 보장이 안된다.)
 - 그러면 만약 값을 업데이트 시켜줘야하는 상황일 때, Setter를 사용하지않고 어떻게 하면 될까?
