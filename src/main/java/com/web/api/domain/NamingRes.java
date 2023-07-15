@@ -9,7 +9,7 @@ import lombok.*;
  */
 
 
-@Setter(AccessLevel.PROTECTED)
+@Setter(AccessLevel.PRIVATE)
 @Getter
 @ToString
 @NoArgsConstructor

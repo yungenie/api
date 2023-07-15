@@ -8,7 +8,7 @@ import lombok.*;
  */
 
 
-//@Setter(AccessLevel.PROTECTED)
+@Setter(AccessLevel.PRIVATE)
 @Getter
 @ToString
 public class NamingReq {
@@ -18,10 +18,6 @@ public class NamingReq {
 
     @JsonProperty(value = "AAaa") //객체 -> JSON(문자열)
     private String AAaa;
-
-    public NamingReq(String aBCDNo) {
-        this.aBCDNo = aBCDNo;
-    }
 
     /*
 

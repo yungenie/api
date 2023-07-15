@@ -1,6 +1,7 @@
 package com.web.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -13,16 +14,24 @@ import lombok.ToString;
 @NoArgsConstructor
 public class NamingDtoV2 {
 
+    //@Schema(name = "aBCDNo")
     private String aBCDNo;
+
+    @Schema(name = "AAaa")
     private String AAaa;
+
     private String BBBb;
     private String CCcC;
     private String DDDD;
     private String AAAAAAa;
     private String Aa;
+
+    @Schema(name = "aA")
     private String aA;
+
     private String aaA;
     private String Fab;
+
 
     public String getaBCDNo() {
         return aBCDNo;
@@ -31,11 +40,10 @@ public class NamingDtoV2 {
     public void setaBCDNo(String aBCDNo) {
         this.aBCDNo = aBCDNo;
     }
-    @JsonProperty("AAaa")
+
     public String getAAaa() {
         return AAaa;
     }
-
 
     public void setAAaa(String AAaa) {
         this.AAaa = AAaa;

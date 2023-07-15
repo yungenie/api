@@ -29,6 +29,14 @@ public class NamingController {
         log.info(String.valueOf(dto));
         return ResponseEntity.ok(dto);
     }
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(implementation = NamingDtoV2.class))),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
     @PostMapping("/auto")
     public ResponseEntity<NamingDtoV2> getValueV2(@RequestBody NamingDtoV2 dto) {
         log.info("Request /v1/issue/naming/javabeans POST/ getValueV2");
