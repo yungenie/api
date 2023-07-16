@@ -1,5 +1,8 @@
 package com.web.api.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.web.api.domain.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,6 +12,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Slf4j
@@ -67,4 +73,36 @@ public class NamingController {
         log.info(String.valueOf(res));
         return res;
     }
+
+    @PostMapping("/lai")
+    public MemberResponse getResToAPI(@RequestBody MemberRequest req) {
+        log.info("Request v1/issue/naming/lombok POST/ getValue");
+
+        // 외부 API 응답 객체
+        String s = "{\"data\" : {\"aBCDNo\":\"hello world\", \"AAaa\":\"please\"}}";
+        System.out.println("s = " + s);
+
+        // 응답 JSON 문자열 -> JSON 객체 변환
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObjectData = (JsonObject) jsonParser.parse(s.toString());
+        System.out.println("jsonObjectData = " + jsonObjectData);
+
+        // JSON 객체 -> JSON 문자열 변환
+        Gson gson = new Gson();
+        String dataJsonStr = gson.toJson(jsonObjectData.get("data"));
+        System.out.println("dataJsonStr = " + dataJsonStr);
+
+        // JSON 문자열 Map 담기
+        MemberResponse resVO = new MemberResponse();
+        Map<String, Object> map = new HashMap<>();
+        map.put("resultVal", dataJsonStr);
+        System.out.println("map = " + map);
+
+        // Map에서 JSON 문자열 꺼내서 자사 NLP 엔진(서비스)에 Response 객체 전달
+        resVO = gson.fromJson((String) map.get("resultVal"), MemberResponse.class);
+        System.out.println("resVO = " + resVO);
+
+        return resVO;
+    }
+
 }

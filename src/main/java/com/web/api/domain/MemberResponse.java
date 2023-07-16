@@ -1,11 +1,40 @@
 package com.web.api.domain;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
-@Data
+//@Data
+@ToString
 public class MemberResponse {
 
-    @Schema(description = "회원 아이디")
-    private Integer MemberId;
+    @JsonProperty("aBCDNo")
+    private String aBCDNo;
+
+    @JsonProperty("AAaa")
+    private String AAaa;
+
+/*    public String getaBCDNo() {
+        return aBCDNo;
+    }
+
+    public void setaBCDNo(String aBCDNo) {
+        this.aBCDNo = aBCDNo;
+    }
+
+    public String getAAaa() {
+        return AAaa;
+    }
+
+    public void setAAaa(String AAaa) {
+        this.AAaa = AAaa;
+    }
+
+    @Override
+    public String toString() {
+        return "MemberResponse{" +
+                "aBCDNo='" + aBCDNo + '\'' +
+                ", AAaa='" + AAaa + '\'' +
+                '}';
+    }*/
 }

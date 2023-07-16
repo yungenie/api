@@ -19,13 +19,13 @@ public class NamingDto {
 
     private String aBCDNo;
     private String AAaa;
-    private String BBBb;
+    /*private String BBBb;
     private String CCcC;
     private String DDDD;
     private String AAAAAAa;
     private String Aa;
     private String aaA;
     private String Fab;
-    private String aA;
+    private String aA;*/
 
 }

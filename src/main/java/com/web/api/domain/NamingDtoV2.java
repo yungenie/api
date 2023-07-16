@@ -17,7 +17,7 @@ public class NamingDtoV2 {
     //@Schema(name = "aBCDNo")
     private String aBCDNo;
 
-    @Schema(name = "AAaa")
+    //@Schema(name = "AAaa")
     private String AAaa;
 
     private String BBBb;
@@ -26,7 +26,7 @@ public class NamingDtoV2 {
     private String AAAAAAa;
     private String Aa;
 
-    @Schema(name = "aA")
+    //@Schema(name = "aA")
     private String aA;
 
     private String aaA;
