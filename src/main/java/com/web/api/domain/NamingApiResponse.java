@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 
 @ToString
-public class MemberResponse {
+public class NamingApiResponse {
 
     @JsonProperty("aBCDNo")
     private String aBCDNo;

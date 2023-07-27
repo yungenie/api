@@ -13,7 +13,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class NamingRes {
+public class NamingResponse {
 
     @JsonProperty(value = "aBCDNo")
     private String aBCDNo;

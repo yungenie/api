@@ -17,6 +17,7 @@ class JacksonDtoTest {
     @Test
     public void 잭슨_Getter() throws IOException {
         JacksonDto dto = new JacksonDto();
+
         dto.setaBCDNo("hello");
 
         String s = this.objectMapper.writeValueAsString(dto);

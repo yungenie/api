@@ -13,34 +13,5 @@ import lombok.*;
 @ToString
 public class NamingReq {
 
-    @JsonProperty(value = "aBCDNo") // JSON(문자열) -> 객체
-    private String aBCDNo;
 
-    @JsonProperty(value = "AAaa") //객체 -> JSON(문자열)
-    private String AAaa;
-
-    /*
-
-    @JsonProperty("BBBb")
-    private String BBBb;
-
-    @JsonProperty("CCcC")
-    private String CCcC;
-
-    @JsonProperty("DDDD")
-    private String DDDD;
-
-    @JsonProperty("AAAAAAa")
-    private String AAAAAAa;
-
-    @JsonProperty("Aa")
-    private String Aa;
-
-    private String aaA;
-
-    @JsonProperty("Fab")
-    private String Fab;
-
-    @JsonProperty("aA")
-    private String aA;*/
 }
