@@ -19,7 +19,6 @@ class JacksonDtoTest {
         JacksonDto dto = new JacksonDto();
         dto.setaBCDNo("hello");
 
-        // writeValueAsString(변활할 객체) : Java 객체를 JSON 형식으로 변환
         String s = this.objectMapper.writeValueAsString(dto);
 
         System.out.println("s = " + s);

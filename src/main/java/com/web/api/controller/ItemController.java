@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * note Code Base에 Swagger관련 코드가 많이 들어가게 되는 문제를 해결하기 위해 TDD에 익숙해지면 RestDoc으로 변경하는 것이 좋음.
- * note 컨트롤러 인터페이스를 만들어서 Swagger 관련 내용을 인터페이스에 작성할 수도 있음
+    swagger 테스트
  */
 @RestController
 @RequiredArgsConstructor

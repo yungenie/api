@@ -2,11 +2,9 @@ package com.web.api.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 
 @Getter
-
 public class ItemResponse {
 
     private Long itemId;

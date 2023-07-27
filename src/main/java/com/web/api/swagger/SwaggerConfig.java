@@ -17,7 +17,7 @@ public class SwaggerConfig {
         String[] paths = {"/v1/**"};
 
         return GroupedOpenApi.builder()
-                .group("채팅서비스 API v1")
+                .group("서비스 API v1")
                 .pathsToMatch(paths)
                 .build();
     }
