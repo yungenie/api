@@ -1,11 +1,18 @@
 package com.web.api.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.web.api.domain.*;
 import com.web.api.service.NamingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * getter/setter jackson naming convention 테스트
@@ -70,6 +77,39 @@ public class NamingController {
         NamingApiResponse res = namingService.getApiResponse();
 
         return  ResponseEntity.ok(res);
+    }
+
+    /**
+     * getter/setter 이슈 최종 정리용
+     */
+    @GetMapping("/getApiResponse")
+    public ResponseEntity<NamingApiResponse2> getValueV5() {
+        // 외부 API 응답 문자열
+        String s = "{\"data\" : {\"requestId\":\"1234253\",\"aCSGNo\":\"91\", \"AAaa\":\"test\",\"prcssResult\":\"ok\"}}";
+        log.info("s = " + s);
+
+        // 문자열 -> JSON객체 변환
+        JsonObject jsonObjectData = (JsonObject) JsonParser.parseString(s.toString());
+        log.info("jsonObjectData = " + jsonObjectData);
+
+        // JSON객체 -> JSON문자열 변환
+        Gson gson = new Gson();
+        String dataJsonStr = gson.toJson(jsonObjectData.get("data"));
+        log.info("dataJsonStr = " + dataJsonStr);
+
+        // JSON문자열 -> HashMap 담기
+        Map<String, Object> map = new HashMap<>();
+        map.put("resultVal", dataJsonStr);
+        log.info("map = " + map);
+
+        // HashMap에서 JSON문자열와 응답 도메인 객체 매핑
+        NamingApiResponse2 resVO = gson.fromJson((String) map.get("resultVal"), (Type) NamingApiResponse2.class);
+        log.info("resVO = " + resVO);
+
+        resVO.updateAAaa("update value");
+
+        // 내부엔진에 Response 객체 전달
+        return ResponseEntity.ok(resVO);
     }
 
 }
